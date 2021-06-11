@@ -1,7 +1,7 @@
 #include <iostream>
-#include <ncurses.h>
+#include <conio.h>
 #include <ctype.h>
-#include <termios.h>
+#include <windows.h>
 #include <time.h>
 #include <thread>
 #include <chrono>
@@ -14,6 +14,7 @@ char retry='y';
 
 int main()
 {
+    // Startscreen printen
     cout << endl;
     cout << endl;
     cout << "  ***** *   *  ***  *   * *****\n";
@@ -22,16 +23,16 @@ int main()
     cout << "      * *  ** *   * * *   *\n";
     cout << "  ***** *   * *   * *   * ******\n";
     cout << endl;
-    cout << " Press Any Key to Continue"<<endl;
-    getch();
+    cout << " Press Any Key to Continü"<<endl;
+    getch(); // Auf Eingabe warten
 
-    while (retry=='y' || retry == 'Y')
+    while (retry == 'y' || retry == 'Y') // Solange ausführen, wie geretryt wird
     {
-        srand(time(NULL));
+        srand(time(NULL)); // Rand init
         score=0;
-        int pion=(rand()-1)%18+1; // Zufaellige Platzierung des Essens
+        int pion=(rand()-1)%18+1; // Zufällige Platzierung des Essens
         int poin=(rand()-1)%18+1;
-        int x[100]; // Laenge der Schlange soll nicht mehr als 100 sein
+        int x[100]; // Länge der Schlange soll nicht mehr als 100 sein
         int y[100];
         x[0]=10; // Startpunkt der Schlange definieren
         y[0]=10;
@@ -41,7 +42,7 @@ int main()
         y[2]=10;
 
         int ular=3 ;
-        string a[20][20]; // Spielfeldgroesse
+        string a[20][20]; // Spielfeldgrösse
         char ctr='d'; // Bewegungsrichtung der Schlange am Anfang
         while (x[0]!=0 && x[0]!=19 && y[0]!=0 && y[0]!=19)
         {
@@ -50,7 +51,7 @@ int main()
                 for (int j=0;j<20;j++)
                 {
                     if (i==0 || j==0 || i==19 || j==19)
-                         a[i][j]="* "; // Raender des Spielfelds ausgeben
+                         a[i][j]="* "; // Ränder des Spielfelds ausgeben
                     else
                          a[i][j]="  "; // Leerfelder ausgeben
                 }
@@ -58,17 +59,19 @@ int main()
             a[poin][pion]="o "; // Essen drucken
             for(int s=ular;s>0;s--)
             {
-                x[s]=x[s-1]; // damit Koerper und Schwanz dem Kopf der Schlange folgen
+                x[s]=x[s-1]; // damit Körper und Schwanz dem Kopf der Schlange folgen
                 y[s]=y[s-1];
             }
             for (int r=0;r<=ular;r++)
             {
                 a[y[r]][x[r]]="* ";
             }
-            if (kbhit()) // Eingabe abfragen w, a, s, d zur Steuerung
+            if (kbhit()) // Eingabe abfragen w, a, s, d zur Steürung
             {
                 ctr=getch();
             }
+
+            // Controls annehmen, W-Oben, S-Unten, A-Links, D-Rechts
             if(ctr=='w')
                 y[0]--;
             if(ctr=='s')
@@ -86,7 +89,7 @@ int main()
                 }
                 cout << endl;
             }
-            if (a[0][0]==a[poin][pion]) // Schlange trifft auf Essen und wird um 1 vergroessert
+            if (a[0][0]==a[poin][pion]) // Schlange trifft auf Essen und wird um 1 vergrössert
             {
                 ular++;
                 poin=rand()%19;
@@ -95,26 +98,26 @@ int main()
                 pion=rand()%19;
                 if (pion%19==0)
                     pion++;
-                score=score+1;
+                score=score+1; // Schlange verlängern
              }
             for (int gh=1;gh<ular;gh++) // Schlange stirbt wenn sie Hindernis trifft
             {
                 if (x[0]==x[gh] && y[0]==y[gh] )
                 {
-                    x[0]=0;
+                    x[0]=0; // Schlange zurücksetzen
                 }
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(25)); // Bei jedem Durchlauf 25ms warten
-            system("clear"); // Bildschirm loeschen
+            Sleep(25); // Bei jedem Durchlauf 25ms warten
+            system("clear"); // Bildschirm löschen
         }
         cout << "GAMEOVER!" <<endl;
         cout << "Score = " << score<<endl;
-        if (score > highscore)
+        if (score > highscore) // Wenn neuer Highscore gemacht wurde
         {
-            highscore=score;
+            highscore=score; // Highscore zu derzeitigem Score ändern
         }
-        cout << "High Score: "<<highscore<<endl;
-        cout << "Retry (y/n): "; cin >>retry;
+        cout << "High Score: "<<highscore<<endl; // Den Highscore ausgeben
+        cout << "Retry (y/n): "; cin >>retry; // Retry-character annehmen (Y/y)
     }
     return 0;
 }
