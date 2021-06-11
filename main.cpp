@@ -108,7 +108,7 @@ int main()
                 }
             }
             Sleep(25); // Bei jedem Durchlauf 25ms warten
-            system("clear"); // Bildschirm löschen
+            system("cls"); // Bildschirm löschen
         }
         cout << "GAMEOVER!" <<endl;
         cout << "Score = " << score<<endl;
