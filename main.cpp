@@ -107,7 +107,7 @@ int main()
                     x[0]=0; // Schlange zurücksetzen
                 }
             }
-            Sleep(25); // Bei jedem Durchlauf 25ms warten
+            Sleep(100); // Bei jedem Durchlauf 25ms warten
             system("cls"); // Bildschirm löschen
         }
         cout << "GAMEOVER!" <<endl;
