@@ -23,7 +23,7 @@ int main()
     cout << "      * *  ** *   * * *   *\n";
     cout << "  ***** *   * *   * *   * ******\n";
     cout << endl;
-    cout << " Press Any Key to Continü"<<endl;
+    cout << " Press Any Key to Continue"<<endl;
     getch(); // Auf Eingabe warten
 
     while (retry == 'y' || retry == 'Y') // Solange ausführen, wie geretryt wird
